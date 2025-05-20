@@ -1,0 +1,30 @@
+package build
+
+import mill._
+import mill.scalalib._
+import mill.scalalib.publish._
+
+object Common {
+  val scalaVersion   = "3.3.6"
+  val organization   = "com.mchange"
+  val publishVersion = "0.0.1-SNAPSHOT"
+
+  def pomSettings( description : String ) =
+    PomSettings(
+      description = description,
+      organization = Common.organization,
+      url = "https://www.mchange.com/projects/logadapter-scala",
+      licenses = Seq(License.`Apache-2.0`),
+      versionControl = VersionControl.github("swaldman", "logadapter-scala"),
+      developers = Seq(
+        Developer("swaldman", "Steve Waldman", "https://github.com/swaldman")
+      )
+    )
+}
+
+object `package` extends RootModule with ScalaModule with PublishModule {
+  override def scalaVersion   = Common.scalaVersion
+  override def artifactName   = T { "logadapter-scala" }
+  override def publishVersion = T { Common.publishVersion }
+  override def pomSettings    = T { Common.pomSettings("Efficient (inline) Scala 3 facade for logging libraries") }
+}
