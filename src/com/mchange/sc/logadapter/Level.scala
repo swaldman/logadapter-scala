@@ -28,7 +28,7 @@ enum Level:
       case WARNING => la.warning(message)
   end log
 
-  inline def log( message : =>String, t : Throwable )( using la : LogAdapter ) =
+  inline def log( message : =>String, t : =>Throwable )( using la : LogAdapter ) =
     inline this match
       case ALL     => la.all(message, t)
       case CONFIG  => la.config(message, t)

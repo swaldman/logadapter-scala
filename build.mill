@@ -27,4 +27,18 @@ object `package` extends RootModule with ScalaModule with PublishModule {
   override def artifactName   = T { "logadapter-scala" }
   override def publishVersion = T { Common.publishVersion }
   override def pomSettings    = T { Common.pomSettings("Efficient (inline) Scala 3 facade for logging libraries") }
+
+  object mlog extends ScalaModule with PublishModule {
+    override def scalaVersion   = Common.scalaVersion
+    override def artifactName   = T { "logadapter-scala-mlog" }
+    override def publishVersion = T { Common.publishVersion }
+    override def pomSettings    = T { Common.pomSettings("LogAdapter for mlog logging.") }
+
+    def moduleDeps = Seq(build)
+    override def ivyDeps: T[Agg[Dep]] = T {
+      Agg(
+        ivy"com.mchange::mlog-scala:0.4.0-SNAPSHOT"
+      )
+    }
+  }
 }
