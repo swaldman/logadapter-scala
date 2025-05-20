@@ -1,6 +1,6 @@
 package com.mchange.sc.logadapter
 
-trait LogAdapter:
+trait AbstractLogAdapter:
   inline def all( inline message : =>String )                             : Unit
   inline def all( inline message : =>String, inline t : =>Throwable )     : Unit
   inline def config( inline message : =>String )                          : Unit
