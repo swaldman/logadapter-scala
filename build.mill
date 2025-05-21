@@ -47,7 +47,7 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
       Agg(
-        ivy"com.mchange::mlog-scala:0.4.0-SNAPSHOT"
+        ivy"com.mchange::mlog-scala:0.4.0"
       )
     }
   }
