@@ -2,6 +2,15 @@
 
 ## Quick Start
 
+```scala
+import logadapter.jul.Api.*
+   
+object MyObject extends SelfLogging:
+  def doSomething() : Unit =
+    INFO.log("Something has been done.")
+
+## Full Start
+
 1. Choose a logging back-end. 
 
    Currently `jul` (java.util.logging),
