@@ -8,6 +8,7 @@ import logadapter.jul.Api.*
 object MyObject extends SelfLogging:
   def doSomething() : Unit =
     INFO.log("Something has been done.")
+```
 
 ## Full Start
 
