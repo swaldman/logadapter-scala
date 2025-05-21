@@ -80,6 +80,9 @@ The API is very simple. Supported log levels are
 * `TRACE`
 * `WARNING`
 
+> [!Note]
+> These levels may not map exactly to the levels of your logging back-end. They are taken from `java.util.logging`. They get remapped to the most appropriate level your back-end supports.
+
 You simply log on levels, like
 
 ```scala
@@ -105,7 +108,8 @@ WARNING.logDebug("No throwable.")
 WARNING.logDebug("With throwable.", t)
 ```
 
-_**Note:** `scribe` brings in filename and line number information by default, so `logDebug` may be less useful with that backend._
+> [!NOTE]
+> `scribe` brings in filename and line number information by default, so `logDebug` may be less useful with that backend.
 
 Sometime for debugging purposes, you want to quickly have the value of an expression
 logged. For that, there is the `logEval` method, or just `apply` your level:
