@@ -1,4 +1,4 @@
-package logadapter.stderr
+package logadapter.jul
 
 object Api extends logadapter.Api[LogAdapter]:
   def logAdapterFor( loggerName : String ) : LogAdapter = new LogAdapter( loggerName )

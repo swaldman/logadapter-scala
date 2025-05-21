@@ -71,7 +71,4 @@ trait Api[T <: LogAdapter]:
   def logAdapterFor( obj : Any )           : T = logAdapterFor(obj.getClass)
 
   def logAdapterByFilename( using fn : sourcecode.FileName ) : T = logAdapterFor( fn.value )
-
-  trait SelfLogging:
-    given adapter : LogAdapter = logAdapterFor(this)
 end Api
