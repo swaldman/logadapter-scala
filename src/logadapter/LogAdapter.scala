@@ -1,4 +1,4 @@
-package com.mchange.sc.logadapter
+package logadapter
 
 trait LogAdapter:
   inline def config( inline message : =>String )                        : Unit

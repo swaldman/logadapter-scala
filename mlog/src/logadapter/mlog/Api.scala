@@ -1,6 +1,6 @@
-package com.mchange.sc.logadapter.mlog
+package logadapter.mlog
 
-object Api extends com.mchange.sc.logadapter.Api[LogAdapter]:
+object Api extends logadapter.Api[LogAdapter]:
   inline def logAdapterFor( loggerName : String ) : LogAdapter = new LogAdapter( loggerName )
   inline def logAdapterFor( clz : Class[_] )      : LogAdapter = logAdapterFor(classNameToLoggerName(clz.getName))
   inline def logAdapterFor( obj : Any )           : LogAdapter = logAdapterFor(obj.getClass)

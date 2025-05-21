@@ -1,6 +1,9 @@
-package com.mchange.sc.logadapter
+package logadapter
 
 trait Api[T <: LogAdapter]:
+
+  type LogAdapter = T
+
   enum Level:
     case CONFIG  extends Level
     case DEBUG   extends Level

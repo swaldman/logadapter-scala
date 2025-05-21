@@ -1,4 +1,4 @@
-package com.mchange.sc.logadapter.mlog
+package logadapter.mlog
 
 //import com.mchange.sc.logadapter.*, Level.*
 

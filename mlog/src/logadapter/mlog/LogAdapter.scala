@@ -1,6 +1,6 @@
-package com.mchange.sc.logadapter.mlog
+package logadapter.mlog
 
-class LogAdapter( loggerName : String ) extends com.mchange.sc.logadapter.LogAdapter:
+class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   import com.mchange.sc.v1.log.*
   inline given logger : MLogger = MLogger( loggerName )
   inline def config( inline message : =>String )                        : Unit = MLevel.CONFIG.log(message)
