@@ -1,22 +1,24 @@
 # logadapter-scala
 
-### Quick Start
+## Quick Start
 
-1. Choose a logging back-end. Currently `jul` (java.util.logging),
+1. Choose a logging back-end. 
+
+   Currently `jul` (java.util.logging),
    [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History),
    and `stderr`, a simple standard-error back-end, are supported.
    More back-ends are (hopefully) coming soon.
    
    For `jul` and `stderr`, the dependency you'll need is just
    
-   * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala" % "0.0.1-SNAPSHOT"`
-   * mill: `ivy"com.mchange::logadapter-scala:0.0.1-SNAPSHOT"
+   * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala" % "<version>"`
+   * mill: `ivy"com.mchange::logadapter-scala:0.0.1-SNAPSHOT"`
    
    For `scribe`, `mlog`, or other backends, you'll need a library-appropriate
    dependency, like
 
-   * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "0.0.1-SNAPSHOT"`
-   * mill: `ivy"com.mchange::logadapter-scala-scribe:0.0.1-SNAPSHOT"
+   * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
+   * mill: `ivy"com.mchange::logadapter-scala-scribe:0.0.1-SNAPSHOT"`
    
 2. Each back-end has its own package, in which there is an object
    called Api. Import the full API from that object:
@@ -54,7 +56,7 @@
    def sunset() : Unit =
      INFO.log("The sun is setting.")
      
-### API
+## API
 
 The API is very simple. Supported log levels are
 
@@ -86,14 +88,14 @@ You can also attach a Throwable to your logs (usually resulting in its stack tra
 ```
 
 If you want more debugging information (like the filename and line number from which
-the message was logged, you can use `logDebug` instead if `log`:
+the message was logged). You can use `logDebug` instead if `log`:
 
 ```scala
 WARNING.logDebug("No throwable.")
 WARNING.logDebug("With throwable.", t)
 ```
 
-_**Note:** `scribe` brings in this information by default, so `logDebug` may be less useful with that backend._
+_**Note:** `scribe` brings in filename and line number information by default, so `logDebug` may be less useful with that backend._
 
 Sometime for debugging purposes, you want to quickly have the value of an expression
 logged. For that, there is the `logEval` method, or just `apply` your level:
@@ -111,7 +113,7 @@ val count = INFO.logEval(prefix = "count")(1 + 2 + 3) // 6 will be logged, and w
 
 That's it!
 
-### Configuration
+## Configuration
 
 `logadapter-scala` does nothing to standardize configuration of back-end libraries.
 Whatever back-end you choose, you'll have to supply its library-specific config files or API.
@@ -138,7 +140,7 @@ import LoggingApi.*
 
 and you can be sure your logging has been configured before the API is available.
 
-### History
+## History
 
 Over the years, JVM applications have adopted a large menagerie of
 logging libraries. I've been partial to logging "facades", (pioneered
