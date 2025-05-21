@@ -1,8 +1,8 @@
-package logadapter.mlog
+package logadapter.test
 
 //import com.mchange.sc.logadapter.*, Level.*
 
-import logadapter.jul.Api.*
+import logadapter.scribe.Api.*
 
 object Hello extends SelfLogging:
   def main(args : Array[String]) : Unit =

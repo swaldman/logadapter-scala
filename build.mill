@@ -51,4 +51,26 @@ object `package` extends RootModule with ScalaModule with PublishModule {
       )
     }
   }
+
+  object scribe extends ScalaModule with PublishModule {
+    override def scalaVersion   = Common.scalaVersion
+    override def artifactName   = T { "logadapter-scala-scribe" }
+    override def publishVersion = T { Common.publishVersion }
+    override def pomSettings    = T { Common.pomSettings("LogAdapter for scribe logging.") }
+    override def scalacOptions  = T { Common.scalacOptions }
+
+    def moduleDeps = Seq(build)
+    override def ivyDeps = T {
+      Agg(
+        ivy"com.outr::scribe:3.16.1",
+        ivy"com.mchange::conveniences:0.0.5"
+      )
+    }
+  }
+
+  object test extends ScalaModule {
+    def moduleDeps = Seq(build,mlog,scribe)
+    override def scalaVersion   = Common.scalaVersion
+    override def scalacOptions  = T { Common.scalacOptions }
+  }
 }
