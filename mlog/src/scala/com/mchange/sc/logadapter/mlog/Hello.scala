@@ -1,13 +1,15 @@
 package com.mchange.sc.logadapter.mlog
 
-import com.mchange.sc.logadapter.*, Level.*
+//import com.mchange.sc.logadapter.*, Level.*
+
+import Api.*
 
 
 object Hello extends SelfLogging:
   def main(args : Array[String]) : Unit =
     //given MLogAdapter = com.mchange.sc.logadapter.mlog.logAdapterByFilename
-    INFO.logDebug("hello!")
-    INFO.logDebug("goodbye!")
+    INFO.log("hello!")
+    INFO.log("goodbye!")
 
 
 

@@ -8,7 +8,8 @@ object Common {
   val scalaVersion   = "3.3.6"
   val organization   = "com.mchange"
   val publishVersion = "0.0.1-SNAPSHOT"
-  val scalacOptions  = Seq.empty[String] //Seq("-Xprint:postInlining","-Xmax-inlines:100000")
+  val scalacOptions  = Seq.empty[String]
+  //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 
   def pomSettings( description : String ) =
     PomSettings(
