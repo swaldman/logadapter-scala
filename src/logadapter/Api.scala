@@ -66,9 +66,12 @@ trait Api[T <: LogAdapter]:
 
   def classNameToLoggerName( clzName : String ) : String = clzName.reverse.dropWhile( _ == '$' ).map( c => if ( c == '$' ) '.' else c ).reverse
 
-  inline def logAdapterFor( loggerName : String ) : T
-  inline def logAdapterFor( clz : Class[_] )      : T
-  inline def logAdapterFor( obj : Any )           : T
+  def logAdapterFor( loggerName : String ) : T
+  def logAdapterFor( clz : Class[_] )      : T = logAdapterFor(classNameToLoggerName(clz.getName))
+  def logAdapterFor( obj : Any )           : T = logAdapterFor(obj.getClass)
 
-  inline def logAdapterByFilename( using fn : sourcecode.FileName ) : T
+  def logAdapterByFilename( using fn : sourcecode.FileName ) : T = logAdapterFor( fn.value )
+
+  trait SelfLogging:
+    given adapter : LogAdapter = logAdapterFor(this)
 end Api

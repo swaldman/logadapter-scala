@@ -2,7 +2,7 @@ package logadapter.mlog
 
 //import com.mchange.sc.logadapter.*, Level.*
 
-import Api.*
+import logadapter.stderr.Api.*
 
 
 object Hello extends SelfLogging:
@@ -10,7 +10,7 @@ object Hello extends SelfLogging:
     //given MLogAdapter = com.mchange.sc.logadapter.mlog.logAdapterByFilename
     INFO.log("hello!")
     INFO.log("goodbye!")
-
+    SEVERE.log("Ouch!")
 
 
 
