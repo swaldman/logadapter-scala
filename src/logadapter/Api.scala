@@ -4,19 +4,9 @@ trait Api[T <: LogAdapter]:
 
   type LogAdapter = T
 
-  enum Level:
-    case CONFIG  extends Level
-    case DEBUG   extends Level
-    case FINE    extends Level
-    case FINER   extends Level
-    case FINEST  extends Level
-    case INFO    extends Level
-    case SEVERE  extends Level
-    case TRACE   extends Level
-    case WARNING extends Level
-
+  extension ( level : Level )
     inline def log( message : =>String )( using la : T ) : Unit =
-      inline this match
+      inline level match
         case CONFIG  => la.config(message)
         case DEBUG   => la.debug(message)
         case FINE    => la.fine(message)
@@ -29,7 +19,7 @@ trait Api[T <: LogAdapter]:
     end log
 
     inline def log( message : =>String, t : =>Throwable )( using la : T ) : Unit =
-      inline this match
+      inline level match
         case CONFIG  => la.config(message, t)
         case DEBUG   => la.debug(message, t)
         case FINE    => la.fine(message, t)
@@ -60,7 +50,7 @@ trait Api[T <: LogAdapter]:
     end logEval
 
     inline def apply[X]( expression : =>X )( using la : T ) : X = logEval( expression )
-  end Level
+  end extension
 
   export Level.*
 

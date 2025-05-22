@@ -68,6 +68,21 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     }
   }
 
+  object zio extends ScalaModule with PublishModule {
+    override def scalaVersion   = Common.scalaVersion
+    override def artifactName   = T { "logadapter-scala-zio" }
+    override def publishVersion = T { Common.publishVersion }
+    override def pomSettings    = T { Common.pomSettings("LogAdapter for scribe logging.") }
+    override def scalacOptions  = T { Common.scalacOptions }
+
+    def moduleDeps = Seq(build)
+    override def ivyDeps = T {
+      Agg(
+        ivy"dev.zio::zio:2.1.18",
+      )
+    }
+  }
+
   object test extends ScalaModule {
     def moduleDeps = Seq(build,mlog,scribe)
     override def scalaVersion   = Common.scalaVersion
