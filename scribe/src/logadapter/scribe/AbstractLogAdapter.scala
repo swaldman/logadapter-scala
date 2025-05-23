@@ -20,26 +20,30 @@ abstract class AbstractLogAdapter extends logadapter.LogAdapter:
 
   private val LineSep = scala.util.Properties.lineSeparator
 
-  inline def logger : scribe.Logger //= Logger( loggerName ) // we use a def to refetch by name from global state, so it's reconfigurable
+  inline def logger : scribe.Logger
 
-  inline def config  ( inline message : =>String )                       : Unit = logger.info( message )
-  inline def config  ( inline message : =>String, inline t : Throwable ) : Unit = logger.info( message + LineSep + t.fullStackTrace )
-  inline def debug   ( inline message : =>String )                       : Unit = logger.debug( message )
-  inline def debug   ( inline message : =>String, inline t : Throwable ) : Unit = logger.debug( message + LineSep + t.fullStackTrace )
-  inline def fine    ( inline message : =>String )                       : Unit = logger.debug( message )
-  inline def fine    ( inline message : =>String, inline t : Throwable ) : Unit = logger.debug( message + LineSep + t.fullStackTrace )
-  inline def finer   ( inline message : =>String )                       : Unit = logger.trace( message )
-  inline def finer   ( inline message : =>String, inline t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
-  inline def finest  ( inline message : =>String )                       : Unit = logger.trace( message )
-  inline def finest  ( inline message : =>String, inline t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
-  inline def info    ( inline message : =>String )                       : Unit = logger.info( message )
-  inline def info    ( inline message : =>String, inline t : Throwable ) : Unit = logger.info( message + LineSep + t.fullStackTrace )
-  inline def severe  ( inline message : =>String )                       : Unit = logger.fatal( message )
-  inline def severe  ( inline message : =>String, inline t : Throwable ) : Unit = logger.fatal( message + LineSep + t.fullStackTrace )
-  inline def trace   ( inline message : =>String )                       : Unit = logger.trace( message )
-  inline def trace   ( inline message : =>String, inline t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
-  inline def warning ( inline message : =>String )                       : Unit = logger.warn( message )
-  inline def warning ( inline message : =>String, inline t : Throwable ) : Unit = logger.warn( message + LineSep + t.fullStackTrace )
+  inline def config  ( message : =>String )                : Unit = logger.info( message )
+  inline def config  ( message : =>String, t : Throwable ) : Unit = logger.info( message + LineSep + t.fullStackTrace )
+  inline def debug   ( message : =>String )                : Unit = logger.debug( message )
+  inline def debug   ( message : =>String, t : Throwable ) : Unit = logger.debug( message + LineSep + t.fullStackTrace )
+  inline def error   ( message : =>String )                : Unit = logger.error( message )
+  inline def error   ( message : =>String, t : Throwable ) : Unit = logger.error( message + LineSep + t.fullStackTrace )
+  inline def fatal   ( message : =>String )                : Unit = logger.fatal( message )
+  inline def fatal   ( message : =>String, t : Throwable ) : Unit = logger.fatal( message + LineSep + t.fullStackTrace )
+  inline def fine    ( message : =>String )                : Unit = logger.debug( message )
+  inline def fine    ( message : =>String, t : Throwable ) : Unit = logger.debug( message + LineSep + t.fullStackTrace )
+  inline def finer   ( message : =>String )                : Unit = logger.trace( message )
+  inline def finer   ( message : =>String, t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
+  inline def finest  ( message : =>String )                : Unit = logger.trace( message )
+  inline def finest  ( message : =>String, t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
+  inline def info    ( message : =>String )                : Unit = logger.info( message )
+  inline def info    ( message : =>String, t : Throwable ) : Unit = logger.info( message + LineSep + t.fullStackTrace )
+  inline def severe  ( message : =>String )                : Unit = logger.error( message )
+  inline def severe  ( message : =>String, t : Throwable ) : Unit = logger.error( message + LineSep + t.fullStackTrace )
+  inline def trace   ( message : =>String )                : Unit = logger.trace( message )
+  inline def trace   ( message : =>String, t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
+  inline def warning ( message : =>String )                : Unit = logger.warn( message )
+  inline def warning ( message : =>String, t : Throwable ) : Unit = logger.warn( message + LineSep + t.fullStackTrace )
   
 end AbstractLogAdapter
 

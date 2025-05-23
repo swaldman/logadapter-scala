@@ -9,6 +9,8 @@ trait Api[T <: LogAdapter]:
       inline level match
         case CONFIG  => la.config(message)
         case DEBUG   => la.debug(message)
+        case ERROR   => la.error(message)
+        case FATAL   => la.fatal(message)
         case FINE    => la.fine(message)
         case FINER   => la.finer(message)
         case FINEST  => la.finest(message)
@@ -22,6 +24,8 @@ trait Api[T <: LogAdapter]:
       inline level match
         case CONFIG  => la.config(message, t)
         case DEBUG   => la.debug(message, t)
+        case ERROR   => la.error(message,t)
+        case FATAL   => la.fatal(message,t)
         case FINE    => la.fine(message, t)
         case FINER   => la.finer(message, t)
         case FINEST  => la.finest(message, t)
