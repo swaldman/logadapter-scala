@@ -1,6 +1,5 @@
 package logadapter.test
 
-
 // I'd like to be able to elegantly abstract over the Api objects.
 // But it's tricky, and I'm hitting this bug, so I'm going to go with inelegant repetition for now!
 //

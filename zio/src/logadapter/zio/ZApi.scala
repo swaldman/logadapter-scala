@@ -2,7 +2,7 @@ package logadapter.zio
 
 import zio.{UIO,ZIO}
 
-class ZApi[T <: logadapter.LogAdapter]( val inner : logadapter.Api[T] ):
+class ZApi[T <: logadapter.LogAdapter, U <: logadapter.Api[T]]( val inner : U ):
   import inner.*
   export inner.*
 

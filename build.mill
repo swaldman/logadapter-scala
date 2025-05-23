@@ -84,7 +84,7 @@ object `package` extends RootModule with ScalaModule with PublishModule {
   }
 
   object test extends ScalaModule {
-    def moduleDeps = Seq(build,mlog,scribe)
+    def moduleDeps = Seq(build,mlog,scribe,zio)
     override def scalaVersion   = Common.scalaVersion
     override def scalacOptions  = T { Common.scalacOptions }
   }
