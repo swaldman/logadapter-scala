@@ -22,13 +22,13 @@ object MyObject extends SelfLogging:
    For `jul` and `stderr`, the dependency you'll need is just
    
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala" % "<version>"`
-   * mill: `ivy"com.mchange::logadapter-scala:0.0.1-SNAPSHOT"`
+   * mill: `ivy"com.mchange::logadapter-scala:<version>"`
    
    For `scribe`, `mlog`, or other backends, you'll need a library-appropriate
    dependency, like
 
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
-   * mill: `ivy"com.mchange::logadapter-scala-scribe:0.0.1-SNAPSHOT"`
+   * mill: `ivy"com.mchange::logadapter-scala-scribe:<version>"`
    
 2. Each back-end has its own package, in which there is an object
    called Api. Import the full API from that object:
@@ -153,6 +153,63 @@ import LoggingApi.*
 ```
 
 and you can be sure your logging has been configured before the API is available.
+
+## ZIO integration
+
+If you bring in...
+
+* sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-zio" % "<version>"`
+* mill: `ivy"com.mchange::logadapter-scala-zio:<version>"`
+
+you can log using your backend of choice to ZIO effects, and have ZIO effects log errors and defects
+to your backend of choice.
+
+(Yes, ZIO has its own native logging. But some of us don't love it.)
+
+Setting up the API is a bit inelegant, due in part to a [compiler bug](https://github.com/scala/scala3/issues/23245)
+that will hopefully get fixed soon. For now the setup looks like...
+
+```scala
+val ZLoggingApi =
+  // first perform any config you want of your logging API
+  // then choose the appropriate back-end, scribe is just an example below 
+  logadapter.zio.ZApi( logadapter.scribe.Api )
+```  
+
+and in your application use...
+
+```scala
+import ZLoggingApi.*
+type SelfLogging = ZLoggingApi.inner.SelfLogging // this is the inelegant bit, due to a compiler bug
+```
+
+> [!NOTE]
+> As before, to log, you'll need either to be in a type that implements `SelfLogging`, or have explicitly brought in a `given LogAdapter`.
+> See [Full Start](#Full-Start), items 3 and 4 above.
+
+Now in addition to the logging API above, you have the following new methods of `Level`:
+
+```scala
+INFO.zlog("This is a message") // returns a ZIO effect, ZIO[Any,Nothing,Unit], or UIO[Unit]
+SEVERE.zlog("This is a message with a Throwable", t) // returns a ZIO effect, ZIO[Any,Nothing,Unit], or UIO[Unit]
+```
+
+You also have available methods you can call directly on ZIO effects, which yield the same effect,
+but with the side effect of logging errors or defects to your backend of choice:
+
+```scala
+val someZioEffect = ...
+someZioEffect.zlogError( WARNING ) // returns someZioEffect with the side effect of logging any errors
+someZioEffect.zlogDefect( SEVERE ) // returns someZioEffect with the side effect of logging any defects
+someZioEffect.zlogErrorDefect( SEVERE ) // returns someZioEffect with the side effect of logging both errors and defects
+```
+
+To get clearer information about where something went wrong if errors or defects are logged, you can add a tag
+to any of these methods:
+
+```scala
+someZioEffect.zlogError( WARNING, what = "Call to DB server" ) // any logged error will mention it was the Call to DB server what done it
+```
 
 ## History
 
