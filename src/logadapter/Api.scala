@@ -57,8 +57,18 @@ trait Api[T <: LogAdapter]:
   def classNameToLoggerName( clzName : String ) : String = clzName.reverse.dropWhile( _ == '$' ).map( c => if ( c == '$' ) '.' else c ).reverse
 
   def logAdapterFor( loggerName : String ) : T
-  def logAdapterFor( clz : Class[_] )      : T = logAdapterFor(classNameToLoggerName(clz.getName))
+  def logAdapterFor( clz : Class[?] )      : T = logAdapterFor(classNameToLoggerName(clz.getName))
   def logAdapterFor( obj : Any )           : T = logAdapterFor(obj.getClass)
 
   def logAdapterByFilename( using fn : sourcecode.FileName ) : T = logAdapterFor( fn.value )
+
+  // We should be able to provide this nested trait once, here, as below.
+  // But because of an apparent Scala bug, we cannot,
+  // we have to provide this trait separately in each implementation
+  // for now!
+  //
+  // See https://github.com/scala/scala3/issues/23245
+  //
+  // trait SelfLogging:
+  //   given adapter : T = logAdapterFor(this)
 end Api
