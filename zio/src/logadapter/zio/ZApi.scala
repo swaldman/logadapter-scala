@@ -2,9 +2,10 @@ package logadapter.zio
 
 import zio.{UIO,ZIO}
 
-class ZApi[T <: logadapter.LogAdapter]( api : logadapter.Api[T] ):
-  import api.*
-  export api.*
+class ZApi[T <: logadapter.LogAdapter]( val inner : logadapter.Api[T] ):
+  import inner.*
+  export inner.*
+
   extension ( level : logadapter.Level )
     inline def zlog( message : =>String )( using la : T ) : UIO[Unit]                    = ZIO.succeed( level.log( message ) )
     inline def zlog( message : =>String, error : Throwable )( using la : T ) : UIO[Unit] = ZIO.succeed( level.log( message, error ) )
