@@ -217,7 +217,8 @@ someZioEffect.zlogError( WARNING, what = "Call to DB server" ) // any logged err
 
 Over the years, JVM applications have adopted a large menagerie of
 logging libraries. I've been partial to logging "facades", (pioneered
-by Apache Commons logging), by which you can learn and use a single
+by [Apache Commons logging](https://commons.apache.org/proper/commons-logging/)), 
+by which you can learn and use a single
 logging API, then plug-in and configure any of the different logging
 libraries you might choose as a "back end".
 
@@ -225,7 +226,7 @@ Mostly in support of [c3p0](https://github.com/swaldman/c3p0), I've
 built a very extensive and configurable logging facade. "mlog" (for
 mchange logging) lives in `com.mchange.v2.log` package of 
 [mchange-commons-java](https://github.com/swaldman/mchange-commons-java/tree/master/src/main/java/com/mchange/v2/log).
-See the [c3p0's documentation](https://www.mchange.com/projects/c3p0) for information
+See the [c3p0's documentation](https://www.mchange.com/projects/c3p0/#configuring_logging) for information
 on configuring and using that package.
 
 [mlog-scala](https://github.com/swaldman/mlog-scala) is a Scala API
