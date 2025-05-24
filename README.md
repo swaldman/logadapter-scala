@@ -230,7 +230,7 @@ See the [c3p0's documentation](https://www.mchange.com/projects/c3p0/#configurin
 on configuring and using that package.
 
 [mlog-scala](https://github.com/swaldman/mlog-scala) is a Scala API
-and facade to `mlog`, which in recent years I've used extensively and
+and facade to `mlog`, which I've used extensively and
 successfully.
 
 However, Scala 3 inlines open a path for a much simpler and lighter-weight
