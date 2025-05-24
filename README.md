@@ -15,7 +15,7 @@ object MyObject extends SelfLogging:
 1. Choose a logging back-end. 
 
    Currently `jul` (java.util.logging),
-   [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History),
+   [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History), slf4j,
    and `stderr`, a simple standard-error back-end, are supported.
    More back-ends are (hopefully) coming soon.
    
@@ -24,7 +24,7 @@ object MyObject extends SelfLogging:
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala" % "<version>"`
    * mill: `ivy"com.mchange::logadapter-scala:<version>"`
    
-   For `scribe`, `mlog`, or other backends, you'll need a library-appropriate
+   For `scribe`, `mlog`, `log4j2`, `slf4j` or other backends, you'll need a library-appropriate
    dependency, like
 
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
@@ -36,7 +36,7 @@ object MyObject extends SelfLogging:
    ```scala
    import logadapter.jul.Api.*
    
-   // you might have chosen `scribe`, `mlog`, or `stderr` instead of `jul`
+   // you might have chosen `scribe`, `mlog`, `log4j2`, `slf4j`, or `stderr` instead of `jul`
    ```
 
 3. Mark your classes and objects with the trait `SelfLogging`
@@ -72,6 +72,8 @@ The API is very simple. Supported log levels are
 
 * `CONFIG`
 * `DEBUG`
+* `ERROR`
+* `FATAL`
 * `FINE`
 * `FINER`
 * `FINEST`
@@ -81,7 +83,7 @@ The API is very simple. Supported log levels are
 * `WARNING`
 
 > [!Note]
-> These levels may not map exactly to the levels of your logging back-end. They are taken from `java.util.logging`. They get remapped to the most appropriate level your back-end supports.
+> These levels may not map exactly to the levels of your logging back-end. They get remapped to the most appropriate level your back-end supports.
 
 You simply log on levels, like
 
@@ -109,7 +111,7 @@ WARNING.logDebug("With throwable.", t)
 ```
 
 > [!NOTE]
-> `scribe` brings in filename and line number information by default, so `logDebug` may be less useful with that backend.
+> Some backends (e.g. `scribe`) bring in filename and line number information by default. `logDebug` may be less useful with these backends.
 
 Sometime for debugging purposes, you want to quickly have the value of an expression
 logged. For that, there is the `logEval` method, or just `apply` your level:
@@ -238,3 +240,17 @@ care, and its overhead is surprisingly small.)
 
 This is an experiment in a much thinner, much simpler logging facade,
 that largely retains the `mlog-scala` API, which I've been happy with.
+
+Note that `mlog` is itself supported by this project. It retains the virtue
+of letting the back-end be chosen and substituted by external configuration,
+rather than committing to it in code. (In that sense, `mlog` is similar to 
+[slf4j](https://www.slf4j.org/).)
+
+## Acknowledgement
+
+This project has been supported in part by external financial sponsorship.
+Many thanks to C. Peel for his support.
+
+---
+
+&copy; 2025 Machinery For Change LLC
