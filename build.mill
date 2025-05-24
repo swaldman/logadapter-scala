@@ -78,7 +78,22 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
       Agg(
-      ivy"org.apache.logging.log4j:log4j-core:2.24.3"
+        ivy"org.apache.logging.log4j:log4j-core:2.24.3"
+      )
+    }
+  }
+  
+  object slf4j extends ScalaModule with PublishModule {
+    override def scalaVersion   = Common.scalaVersion
+    override def artifactName   = T { "logadapter-scala-slf4j" }
+    override def publishVersion = T { Common.publishVersion }
+    override def pomSettings    = T { Common.pomSettings("LogAdapter for slf4j logging.") }
+    override def scalacOptions  = T { Common.scalacOptions }
+
+    def moduleDeps = Seq(build)
+    override def ivyDeps = T {
+      Agg(
+        ivy"org.slf4j:slf4j-api:2.0.17"
       )
     }
   }
@@ -93,14 +108,20 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
       Agg(
-        ivy"dev.zio::zio:2.1.18",
+        ivy"dev.zio::zio:2.1.18"
       )
     }
   }
 
   object test extends ScalaModule {
-    def moduleDeps = Seq(build,mlog,scribe,log4j2,zio)
     override def scalaVersion   = Common.scalaVersion
     override def scalacOptions  = T { Common.scalacOptions }
+
+    def moduleDeps = Seq(build,mlog,scribe,log4j2,slf4j,zio)
+    override def ivyDeps = T {
+      Agg(
+        ivy"ch.qos.logback:logback-classic:1.5.15"
+      )
+    }
   }
 }

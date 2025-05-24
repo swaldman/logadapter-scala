@@ -71,6 +71,19 @@ object Hello:
     INFO.log(s"Hello log4j2!")
     INFO.log("goodbye!")
     SEVERE.logDebug("Ouch!", new Exception())
+  def helloSlf4j() : Unit =
+    println( s"------------- hello slf4j- -------------" )
+    import logadapter.slf4j.Api.*
+    object HelloObject extends SelfLogging:
+      def inside() : Unit =
+        INFO.log(s"Hello slf4j!")
+        INFO.log("goodbye!")
+        SEVERE.logDebug("Ouch!", new Exception())
+    HelloObject.inside()    
+    given LogAdapter = logAdapterByFilename  
+    INFO.log(s"Hello slf4j!")
+    INFO.log("goodbye!")
+    SEVERE.logDebug("Ouch!", new Exception())
   def main(args : Array[String]) : Unit =
     helloScribe()
     Thread.sleep(100)
@@ -81,7 +94,8 @@ object Hello:
     helloJul()
     Thread.sleep(100)
     helloLog4j2()
-
+    Thread.sleep(100)
+    helloSlf4j()
 
 
 
