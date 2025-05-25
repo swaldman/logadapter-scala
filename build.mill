@@ -10,8 +10,14 @@ object Common {
   val publishVersion = "0.0.1-SNAPSHOT"
   val scalacOptions  = Seq.empty[String]
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
+}
 
-  def pomSettings( description : String ) =
+trait CommonModule extends ScalaModule with PublishModule {
+  override def scalaVersion   = Common.scalaVersion
+  override def publishVersion = T { Common.publishVersion }
+  override def scalacOptions  = T { Common.scalacOptions }
+
+  def makePomSettings( description : String ) =
     PomSettings(
       description = description,
       organization = Common.organization,
@@ -24,12 +30,9 @@ object Common {
     )
 }
 
-object `package` extends RootModule with ScalaModule with PublishModule {
-  override def scalaVersion   = Common.scalaVersion
+object `package` extends RootModule with CommonModule {
   override def artifactName   = T { "logadapter-scala" }
-  override def publishVersion = T { Common.publishVersion }
-  override def pomSettings    = T { Common.pomSettings("Efficient (inline) Scala 3 facade for logging libraries") }
-  override def scalacOptions  = T { Common.scalacOptions }
+  override def pomSettings    = T { makePomSettings("Efficient (inline) Scala 3 facade for logging libraries") }
 
   override def ivyDeps = T {
     Agg(
@@ -37,12 +40,9 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     )
   }
 
-  object mlog extends ScalaModule with PublishModule {
-    override def scalaVersion   = Common.scalaVersion
+  object mlog extends CommonModule {
     override def artifactName   = T { "logadapter-scala-mlog" }
-    override def publishVersion = T { Common.publishVersion }
-    override def pomSettings    = T { Common.pomSettings("LogAdapter for mlog logging.") }
-    override def scalacOptions  = T { Common.scalacOptions }
+    override def pomSettings    = T { makePomSettings("LogAdapter for mlog logging.") }
 
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
@@ -52,12 +52,9 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     }
   }
 
-  object scribe extends ScalaModule with PublishModule {
-    override def scalaVersion   = Common.scalaVersion
+  object scribe extends CommonModule {
     override def artifactName   = T { "logadapter-scala-scribe" }
-    override def publishVersion = T { Common.publishVersion }
-    override def pomSettings    = T { Common.pomSettings("LogAdapter for scribe logging.") }
-    override def scalacOptions  = T { Common.scalacOptions }
+    override def pomSettings    = T { makePomSettings("LogAdapter for scribe logging.") }
 
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
@@ -68,12 +65,9 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     }
   }
 
-  object log4j2 extends ScalaModule with PublishModule {
-    override def scalaVersion   = Common.scalaVersion
+  object log4j2 extends CommonModule {
     override def artifactName   = T { "logadapter-scala-log4j2" }
-    override def publishVersion = T { Common.publishVersion }
-    override def pomSettings    = T { Common.pomSettings("LogAdapter for log4j2 logging.") }
-    override def scalacOptions  = T { Common.scalacOptions }
+    override def pomSettings    = T { makePomSettings("LogAdapter for log4j2 logging.") }
 
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
@@ -83,12 +77,9 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     }
   }
   
-  object slf4j extends ScalaModule with PublishModule {
-    override def scalaVersion   = Common.scalaVersion
+  object slf4j extends CommonModule {
     override def artifactName   = T { "logadapter-scala-slf4j" }
-    override def publishVersion = T { Common.publishVersion }
-    override def pomSettings    = T { Common.pomSettings("LogAdapter for slf4j logging.") }
-    override def scalacOptions  = T { Common.scalacOptions }
+    override def pomSettings    = T { makePomSettings("LogAdapter for slf4j logging.") }
 
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
@@ -98,12 +89,9 @@ object `package` extends RootModule with ScalaModule with PublishModule {
     }
   }
 
-  object zio extends ScalaModule with PublishModule {
-    override def scalaVersion   = Common.scalaVersion
+  object zio extends CommonModule {
     override def artifactName   = T { "logadapter-scala-zio" }
-    override def publishVersion = T { Common.publishVersion }
-    override def pomSettings    = T { Common.pomSettings("LogAdapter for scribe logging.") }
-    override def scalacOptions  = T { Common.scalacOptions }
+    override def pomSettings    = T { makePomSettings("LogAdapter for scribe logging.") }
 
     def moduleDeps = Seq(build)
     override def ivyDeps = T {
