@@ -162,7 +162,7 @@ and you can be sure your logging has been configured before the API is available
 
 ## ZIO integration
 
-If &mdash; _in addition to_ your back-end appropriate library &mdash; you bring in...
+_In addition to your back-end appropriate library,_ if &mdash;  &mdash; you bring in...
 
 * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-zio" % "<version>"`
 * mill: `ivy"com.mchange::logadapter-scala-zio:<version>"`
