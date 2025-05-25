@@ -65,6 +65,10 @@ object MyObject extends SelfLogging:
    
    def sunset() : Unit =
      INFO.log("The sun is setting.")
+
+> [!Note]
+> If you wish to log to the logger of a `SelfLogging` object outside of that object's scope,
+> you can explicitly `import MySelfLoggingObject.logAdapter`, and the logging API will become available.
      
 ## API
 
@@ -158,7 +162,7 @@ and you can be sure your logging has been configured before the API is available
 
 ## ZIO integration
 
-If you bring in...
+If &mdash; _in addition to_ your back-end appropriate library &mdash; you bring in...
 
 * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-zio" % "<version>"`
 * mill: `ivy"com.mchange::logadapter-scala-zio:<version>"`
@@ -172,17 +176,17 @@ Setting up the API is a bit inelegant, due in part to a [compiler bug](https://g
 that will hopefully get fixed soon. For now the setup looks like...
 
 ```scala
-val ZLoggingApi =
-  // first perform any config you want of your logging API
-  // then choose the appropriate back-end, scribe is just an example below 
-  logadapter.zio.ZApi( logadapter.scribe.Api )
-```  
+// workaround of nonexport of SelfLogging from logadapter, due to a compiler bug. hopefully unnecessary soon
+object LoggingApi: 
+  val raw = logadapter.zio.ZApi( logadapter.jul.Api )
+  type SelfLogging = raw.inner.SelfLogging
+  export raw.*
+```
 
-and in your application use...
+then, as before, you can use in your application...
 
 ```scala
-import ZLoggingApi.*
-type SelfLogging = ZLoggingApi.inner.SelfLogging // this is the inelegant bit, due to a compiler bug
+import LoggingApi.*
 ```
 
 > [!NOTE]
