@@ -4,7 +4,7 @@
 
 ```scala
 import logadapter.jul.Api.*
-   
+
 object MyObject extends SelfLogging:
   def doSomething() : Unit =
     INFO.log("Something has been done.")
@@ -12,30 +12,29 @@ object MyObject extends SelfLogging:
 
 ## Full Start
 
-1. Choose a logging back-end. 
+1. Choose a logging back-end.
 
    Currently `jul` (java.util.logging),
    [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History), slf4j,
    and `stderr`, a simple standard-error back-end, are supported.
-   More back-ends are (hopefully) coming soon.
-   
+
    For `jul` and `stderr`, the dependency you'll need is just
-   
+
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala" % "<version>"`
    * mill: `ivy"com.mchange::logadapter-scala:<version>"`
-   
+
    For `scribe`, `mlog`, `log4j2`, `slf4j` or other backends, you'll need a library-appropriate
    dependency, like
 
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
    * mill: `ivy"com.mchange::logadapter-scala-scribe:<version>"`
-   
+
 2. Each back-end has its own package, in which there is an object
    called Api. Import the full API from that object:
 
    ```scala
    import logadapter.jul.Api.*
-   
+
    // you might have chosen `scribe`, `mlog`, `log4j2`, `slf4j`, or `stderr` instead of `jul`
    ```
 
@@ -43,10 +42,10 @@ object MyObject extends SelfLogging:
    (part of what you've imported). That brings in a `LogAdapter`
    as a `given`, enabling you to log inside the class or object
    at will:
-   
+
    ```scala
    import logadapter.jul.Api.*
-   
+
    object MyObject extends SelfLogging:
      def doSomething() : Int =
        TRACE.log("Entered "doingSomething()")
@@ -57,19 +56,19 @@ object MyObject extends SelfLogging:
 
 4. If you wish to be able to log outside of a `SelfLogging` class or object,
    you can explicitly bring in a `LogAdapter` from your Api as a `given`:
-   
+
    ```scala
    import logadapter.jul.Api.*
-   
+
    given LogAdapter = logAdapterFor( "com.mchange.my.logger.name" )
-   
+
    def sunset() : Unit =
      INFO.log("The sun is setting.")
 
 > [!Note]
 > If you wish to log to the logger of a `SelfLogging` object outside of that object's scope,
 > you can explicitly `import MySelfLoggingObject.logAdapter`, and the logging API will become available.
-     
+
 ## API
 
 The API is very simple. Supported log levels are
@@ -125,7 +124,7 @@ val count = INFO(1 + 2 + 3) // 6 will be logged, and will become the value of co
 ```
 
 If you want a prefix to help you interpret the printed expression, you can
-use 
+use
 
 ```scala
 val count = INFO.logEval(prefix = "count")(1 + 2 + 3) // 6 will be logged, and will become the value of count
@@ -149,7 +148,7 @@ val LoggingApi =
      .clearHandlers()
      .withHandler(minimumLevel = Some(scribe.Level.Info), formatter = scribe.format.Formatter.compact)
      .replace()
-  logadapter.scribe.Api   
+  logadapter.scribe.Api
 ```
 
 Now, your application files can just import from `LoggingApi`:
@@ -177,7 +176,7 @@ that will hopefully get fixed soon. For now the setup looks like...
 
 ```scala
 // workaround of nonexport of SelfLogging from logadapter, due to a compiler bug. hopefully unnecessary soon
-object LoggingApi: 
+object LoggingApi:
   val raw = logadapter.zio.ZApi( logadapter.jul.Api )
   type SelfLogging = raw.inner.SelfLogging
   export raw.*
@@ -221,14 +220,14 @@ someZioEffect.zlogError( WARNING, what = "Call to DB server" ) // any logged err
 
 Over the years, JVM applications have adopted a large menagerie of
 logging libraries. I've been partial to logging "facades", (pioneered
-by [Apache Commons logging](https://commons.apache.org/proper/commons-logging/)), 
+by [Apache Commons logging](https://commons.apache.org/proper/commons-logging/)),
 by which you can learn and use a single
 logging API, then plug-in and configure any of the different logging
 libraries you might choose as a "back end".
 
 Mostly in support of [c3p0](https://github.com/swaldman/c3p0), I've
 built a very extensive and configurable logging facade. "mlog" (for
-mchange logging) lives in `com.mchange.v2.log` package of 
+mchange logging) lives in `com.mchange.v2.log` package of
 [mchange-commons-java](https://github.com/swaldman/mchange-commons-java/tree/master/src/main/java/com/mchange/v2/log).
 See the [c3p0's documentation](https://www.mchange.com/projects/c3p0/#configuring_logging) for information
 on configuring and using that package.
@@ -248,7 +247,7 @@ that largely retains the `mlog-scala` API, which I've been happy with.
 
 Note that `mlog` is itself supported by this project. It retains the virtue
 of letting the back-end be chosen and substituted by external configuration,
-rather than committing to it in code. (In that sense, `mlog` is similar to 
+rather than committing to it in code. (In that sense, `mlog` is similar to
 [slf4j](https://www.slf4j.org/).)
 
 ## Acknowledgement
