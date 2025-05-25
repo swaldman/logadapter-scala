@@ -7,7 +7,7 @@ object LogAdapter:
   val TimestampFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'@'HH':'mm':'ss")
 
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
-  
+
   private inline def log( inline tag : String, message : =>String ) : Unit =
     val timestamp = LogAdapter.TimestampFormatter.format( LocalDateTime.now )
     System.err.println( s"${timestamp} ${tag} [${loggerName}] ${message}" )

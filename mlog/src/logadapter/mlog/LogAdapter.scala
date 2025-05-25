@@ -7,7 +7,14 @@ object LogAdapter:
   inline def FatalMLevel = MLevel.SEVERE
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   import LogAdapter.*
-  given logger : MLogger = MLogger( loggerName ) // cache don't inline
+
+  // cache don't inline
+  // not sure why given logger : MLogger = MLogger( loggerName ) seems not to cache,
+  // is given x : X = whatevev() equivalent to implicit def rather than implicit val?
+  val cached = MLogger( loggerName )
+
+  given logger : MLogger = cached
+
   inline def config( message : =>String )                 : Unit = MLevel.CONFIG.log(message)
   inline def config( message : =>String, t : Throwable )  : Unit = MLevel.CONFIG.log(message,t)
   inline def debug( message : =>String )                  : Unit = MLevel.DEBUG.log(message)
