@@ -11,5 +11,5 @@ object Api extends logadapter.Api[LogAdapter]:
   // See https://github.com/scala/scala3/issues/23245
   //
   trait SelfLogging:
-    given adapter : LogAdapter = logAdapterFor(this)
+    lazy given logAdapter : LogAdapter = logAdapterFor(this)
 end Api

@@ -74,5 +74,5 @@ trait Api[T <: LogAdapter]:
   // See https://github.com/scala/scala3/issues/23245
   //
   // trait SelfLogging:
-  //   given adapter : T = logAdapterFor(this)
+  //   lazy given logAdapter : T = logAdapterFor(this)
 end Api
