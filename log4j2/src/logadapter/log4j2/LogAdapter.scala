@@ -3,21 +3,26 @@ package logadapter.log4j2
 import org.apache.logging.log4j.*
 
 object LogAdapter:
-  val ConfigLevel = Level.INFO
-  val FineLevel   = Level.DEBUG
-  val FinerLevel  = Level.DEBUG
-  val FinestLevel = Level.TRACE
-  val SevereLevel = Level.ERROR
+  inline def ConfigLevel = Level.INFO
+  inline def FineLevel   = Level.DEBUG
+  inline def FinerLevel  = Level.DEBUG
+  inline def FinestLevel = Level.TRACE
+  inline def SevereLevel = Level.ERROR
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   import LogAdapter.*
 
+  // we don't inline def this. we prefer the field lookup to relooking up the logger.
   val logger = LogManager.getLogger( loggerName )
 
   inline def log( inline level : Level, message : =>String ) : Unit =
-    if logger.isEnabled( level ) then logger.log( level, message )
+    val lgr = logger // cache to avoid double field lookups
+    val lvl = level  // cache to avoid double field lookups
+    if lgr.isEnabled( lvl ) then lgr.log( lvl, message )
 
   inline def log( inline level : Level, message : =>String, t : Throwable ) : Unit =
-    if logger.isEnabled( level ) then logger.log( level, message )
+    val lgr = logger // cache to avoid double field lookups
+    val lvl = level  // cache to avoid double field lookups
+    if lgr.isEnabled( lvl ) then lgr.log( lvl, message )
 
   inline def config( message : =>String )                 : Unit = log( ConfigLevel, message )
   inline def config( message : =>String, t : Throwable )  : Unit = log( ConfigLevel, message, t )

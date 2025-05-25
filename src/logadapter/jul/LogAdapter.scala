@@ -3,20 +3,25 @@ package logadapter.jul
 import java.util.logging.{Level as JLevel, Logger as JLogger}
 
 object LogAdapter:
-  val DebugLevel = JLevel.FINE
-  val ErrorLevel = JLevel.WARNING
-  val FatalLevel = JLevel.SEVERE
-  val TraceLevel = JLevel.FINEST
+  inline def DebugLevel = JLevel.FINE
+  inline def ErrorLevel = JLevel.WARNING
+  inline def FatalLevel = JLevel.SEVERE
+  inline def TraceLevel = JLevel.FINEST
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   import LogAdapter.*
 
-  val logger = JLogger.getLogger( loggerName )
+  // we don't inline def this. we prefer the field lookup to re-looking up the logger
+  val jlogger = JLogger.getLogger( loggerName )
 
   private inline def log( inline jlevel : JLevel, message : =>String ) : Unit =
-    if logger.isLoggable(jlevel) then logger.log( jlevel, message )
+    val jlgr = jlogger // cache to avoid double field lookups
+    val jlvl = jlevel  // cache to avoid double field lookups
+    if jlgr.isLoggable(jlvl) then jlgr.log( jlvl, message )
 
   private inline def log( inline jlevel : JLevel, message : =>String, t : Throwable ) : Unit =
-    if logger.isLoggable(jlevel) then logger.log( jlevel, message, t )
+    val jlgr = jlogger // cache to avoid double field lookups
+    val jlvl = jlevel  // cache to avoid double field lookups
+    if jlgr.isLoggable(jlvl) then jlgr.log( jlvl, message, t )
 
   inline def config  ( message : =>String )                : Unit = log(JLevel.CONFIG,  message)
   inline def config  ( message : =>String, t : Throwable ) : Unit = log(JLevel.CONFIG,  message, t)

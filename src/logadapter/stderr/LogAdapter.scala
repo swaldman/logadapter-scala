@@ -3,6 +3,7 @@ package logadapter.stderr
 import java.time.*, format.DateTimeFormatter
 
 object LogAdapter:
+  // we don't inline def this. we prefer the field lookup to reconstructing the formatter
   val TimestampFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'@'HH':'mm':'ss")
 
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:

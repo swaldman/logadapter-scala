@@ -18,7 +18,7 @@ import com.mchange.conveniences.throwable.*
  */
 abstract class AbstractLogAdapter extends logadapter.LogAdapter:
 
-  private val LineSep = scala.util.Properties.lineSeparator
+  private inline def LineSep = scala.util.Properties.lineSeparator
 
   inline def logger : scribe.Logger
 

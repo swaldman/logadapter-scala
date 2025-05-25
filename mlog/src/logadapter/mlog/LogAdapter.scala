@@ -3,11 +3,11 @@ package logadapter.mlog
 import com.mchange.sc.v1.log.*
 
 object LogAdapter:
-  val ErrorMLevel = MLevel.WARNING
-  val FatalMLevel = MLevel.SEVERE
+  inline def ErrorMLevel = MLevel.WARNING
+  inline def FatalMLevel = MLevel.SEVERE
 class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   import LogAdapter.*
-  inline given logger : MLogger = MLogger( loggerName )
+  given logger : MLogger = MLogger( loggerName ) // cache don't inline
   inline def config( message : =>String )                 : Unit = MLevel.CONFIG.log(message)
   inline def config( message : =>String, t : Throwable )  : Unit = MLevel.CONFIG.log(message,t)
   inline def debug( message : =>String )                  : Unit = MLevel.DEBUG.log(message)
