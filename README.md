@@ -12,11 +12,11 @@ object MyObject extends SelfLogging:
 
 ## Full Start
 
-1. Choose a logging back-end.
+1. Choose a logging backend.
 
    Currently `jul` (java.util.logging),
    [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History), slf4j,
-   and `stderr`, a simple standard-error back-end, are supported.
+   and `stderr`, a simple standard-error backend, are supported.
 
    For `jul` and `stderr`, the dependency you'll need is just
 
@@ -28,8 +28,10 @@ object MyObject extends SelfLogging:
 
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
    * mill: `ivy"com.mchange::logadapter-scala-scribe:<version>"`
+   
+   Look for the [latest version](https://central.sonatype.com/search?q=logadapter-scala) (which will be the same across all backends).
 
-2. Each back-end has its own package, in which there is an object
+2. Each backend has its own package, in which there is an object
    called Api. Import the full API from that object:
 
    ```scala
@@ -97,9 +99,9 @@ The API is very simple. Supported log levels are
 * `WARNING`
 
 > [!Note]
-> These levels may not map exactly to the levels of your logging back-end. They get remapped to the most appropriate level your back-end supports.
+> These levels may not map exactly to the levels of your logging backend. They get remapped to the most appropriate level your backend supports.
 
-You simply log on levels, like
+Once you've established a context with a logger (see Steps 3 and 4 above), you simply log on levels:
 
 ```scala
 INFO.log("The sun'll come up tomorrow.")
@@ -145,11 +147,12 @@ That's it!
 
 ## Configuration
 
-`logadapter-scala` does nothing to standardize configuration of back-end libraries.
-Whatever back-end you choose, you'll have to supply its library-specific config files or API.
+`logadapter-scala` does nothing to standardize configuration of backend libraries.
+Whatever backend you choose, you'll have to supply its library-specific config files
+or use its configuration API directly.
 
 However, `logadapter-scala` Api objects are ordinary objects. If you are using
-programmartic configuration, one way to ensure your Api is configured before you
+programmatic configuration, one way to ensure your Api is configured before you
 begin to use it is define your own alias for it, and import that:
 
 ```scala
@@ -162,7 +165,7 @@ val LoggingApi =
   logadapter.scribe.Api
 ```
 
-Now, your application files can just import from `LoggingApi`:
+Now, your configuration is centralized, easy to update or switch out. Elsewhere in your application, you just import from `LoggingApi`:
 
 ```scala
 import LoggingApi.*
@@ -172,7 +175,7 @@ and you can be sure your logging has been configured before the API is available
 
 ## ZIO integration
 
-_In addition to your back-end appropriate library,_ if you bring in...
+_In addition to your backend appropriate library,_ if you bring in...
 
 * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-zio" % "<version>"`
 * mill: `ivy"com.mchange::logadapter-scala-zio:<version>"`
@@ -257,7 +260,7 @@ This is an experiment in a much thinner, much simpler logging facade,
 that largely retains the `mlog-scala` API, which I've been happy with.
 
 Note that `mlog` is itself supported by this project. It retains the virtue
-of letting the back-end be chosen and substituted by external configuration,
+of letting the backend be chosen and substituted by external configuration,
 rather than committing to it in code. (In that sense, `mlog` is similar to
 [slf4j](https://www.slf4j.org/).)
 
