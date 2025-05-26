@@ -175,7 +175,7 @@ Now, your configuration is centralized, easy to update or switch out. Elsewhere 
 import LoggingApi.*
 ```
 
-and you can be sure your logging has been configured before the API is available.
+and you can be sure your logging has been configured before the API is accessed.
 
 ## ZIO integration
 
