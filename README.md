@@ -64,6 +64,17 @@ object MyObject extends SelfLogging:
 
    def sunset() : Unit =
      INFO.log("The sun is setting.")
+   ```
+
+   `logAdapterFor` accepts a String logger name, or any `object` or instance,
+   in which case the log name becomes the class name. (If a `Class` object
+   is provided, the log name is the `classObject.getName()`)
+
+   You can also use the source file name as your logger name, via
+
+   ```scala
+   given LogAdapter = logAdapterByFilename
+   ```
 
 > [!Note]
 > If you wish to log to the logger of a `SelfLogging` object outside of that object's scope,
