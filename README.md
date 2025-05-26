@@ -1,5 +1,16 @@
 # logadapter-scala
 
+## Table of Contents
+
+  * [logadapter\-scala](#logadapter-scala)
+  * [Quick Start](#quick-start)
+  * [Full Start](#full-start)
+  * [API](#api)
+  * [Configuration](#configuration)
+  * [ZIO integration](#zio-integration)
+  * [History](#history)
+  * [Acknowledgement](#acknowledgement)
+
 ## Quick Start
 
 ```scala
