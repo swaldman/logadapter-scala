@@ -15,7 +15,7 @@ object MyObject extends SelfLogging:
 1. Choose a logging backend.
 
    Currently `jul` (java.util.logging),
-   [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History), slf4j,
+   [`scribe`](https://github.com/outr/scribe/), [`mlog`](#History), [`slf4j`](https://www.slf4j.org/),
    and `stderr`, a simple standard-error backend, are supported.
 
    For `jul` and `stderr`, the dependency you'll need is just
