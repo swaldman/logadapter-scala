@@ -28,8 +28,12 @@ object MyObject extends SelfLogging:
 
    * sbt:  `libraryDependencies += "com.mchange" %% "logadapter-scala-scribe" % "<version>"`
    * mill: `ivy"com.mchange::logadapter-scala-scribe:<version>"`
-   
+
    Look for the [latest version](https://central.sonatype.com/search?q=logadapter-scala) (which will be the same across all backends).
+
+> [!Note]
+> For logback, choose the `slf4j` backend, but make sure the [latest version of `logback-classic`](https://central.sonatype.com/artifact/ch.qos.logback/logback-classic) is
+> in your `CLASSPATH`.
 
 2. Each backend has its own package, in which there is an object
    called Api. Import the full API from that object:
