@@ -2,7 +2,6 @@
 
 ## Table of Contents
 
-  * [logadapter\-scala](#logadapter-scala)
   * [Quick Start](#quick-start)
   * [Full Start](#full-start)
   * [API](#api)
