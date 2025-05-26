@@ -51,7 +51,7 @@ object MyObject extends SelfLogging:
        TRACE.log("Entered "doingSomething()")
        INFO.log("I'm doing something!")
        WARNING.logDebug("Math is hard!")
-       INFO.logEval("Computation")(3 + 7) // this logs "Computation: 10" and evaluate to 10
+       INFO.logEval("Computation")(3 + 7) // this logs "Computation: 10" and evaluates to 10
    ```
 
 4. If you wish to be able to log outside of a `SelfLogging` class or object,
