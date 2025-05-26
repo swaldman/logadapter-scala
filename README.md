@@ -9,7 +9,7 @@
   * [Configuration](#configuration)
   * [ZIO integration](#zio-integration)
   * [History](#history)
-  * [Acknowledgement](#acknowledgement)
+  * [Acknowledgements](#acknowledgements)
 
 ## Quick Start
 
@@ -279,7 +279,7 @@ of letting the backend be chosen and substituted by external configuration,
 rather than committing to it in code. (In that sense, `mlog` is similar to
 [slf4j](https://www.slf4j.org/).)
 
-## Acknowledgement
+## Acknowledgements
 
 This project has been supported in part by external financial sponsorship.
 Many thanks to C. Peel for his support.
