@@ -98,7 +98,7 @@ object MyObject extends SelfLogging:
 
 > [!Warning]
 > It's best to let final classes and singleton `object`s extend the `SelfLogging` trait.
-> If traits or classes that will be extended extend `SelfLogging, subclasses will be unable 
+> If traits or classes that will be extended themselves extend `SelfLogging`, subclasses will be unable 
 > to do so and log messages will be directed to the parent class logger.
 >
 > A useful pattern is to let companion `object`s extend `SelfLogging` and let the trait or class
