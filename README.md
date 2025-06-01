@@ -92,9 +92,17 @@ object MyObject extends SelfLogging:
    given LogAdapter = logAdapterByFilename
    ```
 
-> [!Note]
+> [!Tip]
 > If you wish to log to the logger of a `SelfLogging` object outside of that object's scope,
 > you can explicitly `import MySelfLoggingObject.logAdapter`, and the logging API will become available.
+
+> [!Warning]
+> It's best to let final classes and singleton `object`s extend the `SelfLogging` trait.
+> If traits or classes that will be extended extend `SelfLogging, subclasses will be unable 
+> to do so and log messages will be directed to the parent class logger.
+>
+> A useful pattern is to let companion `object`s extend `SelfLogging` and let the trait or class
+> import the `object`'s `given` member `logAdapter`, as in the tip just above.
 
 ## API
 
