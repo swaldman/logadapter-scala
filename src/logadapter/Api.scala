@@ -66,13 +66,9 @@ trait Api[T <: LogAdapter]:
 
   def logAdapterByFilename( using fn : sourcecode.FileName ) : T = logAdapterFor( fn.value )
 
-  // We should be able to provide this nested trait once, here, as below.
-  // But because of an apparent Scala bug, we cannot,
-  // we have to provide this trait separately in each implementation
-  // for now!
-  //
-  // See https://github.com/scala/scala3/issues/23245
-  //
-  // trait SelfLogging:
-  //   lazy given logAdapter : T = logAdapterFor(this)
+  trait SelfLogging:
+    // workaround nested lazy val compiler bug...
+    // see https://github.com/scala/scala3/issues/23245
+    private val adapter : LogAdapter = logAdapterFor(this)
+    given logAdapter : LogAdapter = adapter
 end Api
