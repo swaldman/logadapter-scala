@@ -207,15 +207,13 @@ to your backend of choice.
 
 (Yes, ZIO has its own native logging. But some of us don't love it.)
 
-Setting up the API is a bit inelegant, due in part to a [compiler bug](https://github.com/scala/scala3/issues/23245)
-that will hopefully get fixed soon. For now the setup looks like...
+Setting up the API is just
 
 ```scala
-// workaround of nonexport of SelfLogging from logadapter, due to a compiler bug. hopefully unnecessary soon
-object LoggingApi:
-  val raw = logadapter.zio.ZApi( logadapter.jul.Api )
-  type SelfLogging = raw.inner.SelfLogging
-  export raw.*
+val LoggingApi =
+  // optionally do some configuring of 
+  // your logging library here
+  logadapter.zio.ZApi( logadapter.log4j2.Api )
 ```
 
 then, as before, you can use in your application...
