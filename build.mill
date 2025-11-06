@@ -1,4 +1,4 @@
-//| mill-version: 1.0.3
+//| mill-version: 1.0.6
 //| mill-jvm-version: 17
 //+-------------------------------------------------------------------------------------------------------------
 package build
@@ -6,9 +6,9 @@ package build
 import mill.*, scalalib.*, publish.*
 
 object Common:
-  val scalaVersion   = "3.3.6"
+  val scalaVersion   = "3.3.7"
   val organization   = "com.mchange"
-  val publishVersion = "0.0.2-SNAPSHOT"
+  val publishVersion = "0.0.2"
   val scalacOptions  = Seq.empty[String]
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 
