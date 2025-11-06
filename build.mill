@@ -13,7 +13,7 @@ object Common:
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 
 
-trait CommonModule extends ScalaModule with PublishModule:
+trait CommonModule extends ScalaModule with SonatypeCentralPublishModule:
   override def scalaVersion   = Common.scalaVersion
   override def publishVersion = Task( Common.publishVersion )
   override def scalacOptions  = Task( Common.scalacOptions )
