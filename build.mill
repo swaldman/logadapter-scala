@@ -8,7 +8,7 @@ import mill.*, scalalib.*, publish.*
 object Common:
   val scalaVersion   = "3.3.7"
   val organization   = "com.mchange"
-  val publishVersion = "0.0.2"
+  val publishVersion = "0.0.3-SNAPSHOT"
   val scalacOptions  = Seq.empty[String]
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 

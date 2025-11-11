@@ -44,6 +44,6 @@ abstract class AbstractLogAdapter extends logadapter.LogAdapter:
   inline def trace   ( message : =>String, t : Throwable ) : Unit = logger.trace( message + LineSep + t.fullStackTrace )
   inline def warning ( message : =>String )                : Unit = logger.warn( message )
   inline def warning ( message : =>String, t : Throwable ) : Unit = logger.warn( message + LineSep + t.fullStackTrace )
-  
+
 end AbstractLogAdapter
 
