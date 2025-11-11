@@ -22,7 +22,7 @@ class LogAdapter( loggerName : String ) extends logadapter.LogAdapter:
   inline def log( inline level : Level, message : =>String, t : Throwable ) : Unit =
     val lgr = logger // cache to avoid double field lookups
     val lvl = level  // cache to avoid double field lookups
-    if lgr.isEnabled( lvl ) then lgr.log( lvl, message )
+    if lgr.isEnabled( lvl ) then lgr.log( lvl, message, t )
 
   inline def config( message : =>String )                 : Unit = log( ConfigLevel, message )
   inline def config( message : =>String, t : Throwable )  : Unit = log( ConfigLevel, message, t )
