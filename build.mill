@@ -8,7 +8,7 @@ import mill.*, scalalib.*, publish.*
 object Common:
   val scalaVersion   = "3.3.7"
   val organization   = "com.mchange"
-  val publishVersion = "0.0.3-SNAPSHOT"
+  val publishVersion = "0.0.3"
   val scalacOptions  = Seq.empty[String]
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 
@@ -36,7 +36,7 @@ object `package` extends CommonModule:
 
   override def mvnDeps = Task:
     Seq(
-      mvn"com.lihaoyi::sourcecode:0.4.3-M5"
+      mvn"com.lihaoyi::sourcecode:0.4.4"
     )
 
   object mlog extends CommonModule:
@@ -46,7 +46,7 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build)
     override def mvnDeps = Task:
       Seq(
-        mvn"com.mchange::mlog-scala:0.4.0"
+        mvn"com.mchange::mlog-scala:0.4.1"
       )
 
   object scribe extends CommonModule:
@@ -56,8 +56,8 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build)
     override def mvnDeps = Task:
       Seq(
-        mvn"com.outr::scribe:3.16.1",
-        mvn"com.mchange::conveniences:0.0.5"
+        mvn"com.outr::scribe:3.17.0",
+        mvn"com.mchange::conveniences:0.0.6"
       )
 
   object log4j2 extends CommonModule:
@@ -67,7 +67,7 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build)
     override def mvnDeps = Task:
       Seq(
-        mvn"org.apache.logging.log4j:log4j-core:2.24.3"
+        mvn"org.apache.logging.log4j:log4j-core:2.25.3"
       )
 
   object slf4j extends CommonModule:
@@ -87,7 +87,7 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build)
     override def mvnDeps = Task:
       Seq(
-        mvn"dev.zio::zio:2.1.18"
+        mvn"dev.zio::zio:2.1.24"
       )
 
   object test extends ScalaModule:
@@ -97,7 +97,7 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build,mlog,scribe,log4j2,slf4j,zio)
     override def mvnDeps = Task:
       Seq(
-        mvn"ch.qos.logback:logback-classic:1.5.15"
+        mvn"ch.qos.logback:logback-classic:1.5.32"
       )
 
 
