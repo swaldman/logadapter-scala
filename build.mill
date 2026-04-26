@@ -8,7 +8,7 @@ import mill.*, scalalib.*, publish.*
 object Common:
   val scalaVersion   = "3.3.7"
   val organization   = "com.mchange"
-  val publishVersion = "0.0.3"
+  val publishVersion = "0.0.4"
   val scalacOptions  = Seq.empty[String]
   //val scalacOptions  = Seq("-Xprint:postInlining","-Xmax-inlines:100000")
 
@@ -46,7 +46,7 @@ object `package` extends CommonModule:
     def moduleDeps = Seq(build)
     override def mvnDeps = Task:
       Seq(
-        mvn"com.mchange::mlog-scala:0.4.1"
+        mvn"com.mchange::mlog-scala:0.4.2"
       )
 
   object scribe extends CommonModule:
